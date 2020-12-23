@@ -1,0 +1,11 @@
+<div class="test">
+ <?php 
+  $post = $block->getI();
+  foreach($post as $item)
+  {
+    echo "<img class='fotorama__img' src='".$block->getBaseUrl()."pub/media/aht/image/upload/".$item->getImage()."' alt=''>";
+    echo $item->getName();
+  }
+  ?>
+ </div>
+    

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">test_index_listing.test_index_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new" />
+				<class>primary</class>
+				<label translate="true">Add New</label>
+			</button>
+		</buttons>
+		<spinner>test_index_columns</spinner>
+		<deps>
+			<dep>test_index_listing.test_index_listing_data_source</dep>
+		</deps>
+	</settings>
+	<!-- sử dụng -->
+	<dataSource name="test_index_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>AHT_Portfolio::list</aclResource>
+        <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="test_index_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks" />
+		<columnsControls name="columns_controls" />
+		<filterSearch name="fulltext" />
+		<filters name="listing_filters">
+			<settings>
+				<templates>
+					<filters>
+						<select>
+							<param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+							<param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+						</select>
+					</filters>
+				</templates>
+			</settings>
+		</filters>
+		<paging name="listing_paging" />
+	</listingToolbar>
+		<columns name="test_index_columns">
+			<selectionsColumn name="ids">
+				<settings>
+					<indexField>id</indexField>
+					<preserveSelectionsOnFilter>true</preserveSelectionsOnFilter>
+				</settings>
+			</selectionsColumn>
+
+		 <column name="id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="title">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+
+        <column name="image" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Image</item>
+                </item>
+            </argument>
+        </column>
+        
+        <column name="description">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Description</label>
+            </settings>
+        </column>
+
+        <column name="created_at" >
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Create Time</label>
+            </settings>
+        </column>
+
+		 <column name="update_time" >
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Update Time</label>
+            </settings>
+        </column>
+
+		 <column name="store_view">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Store View</label>
+            </settings>
+        </column>
+	
+        <actionsColumn name="actions"  class="AHT\Portfolio\Ui\Component\Listing\Column\IndexActions">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </actionsColumn>
+	</columns>
+
+</listing>
