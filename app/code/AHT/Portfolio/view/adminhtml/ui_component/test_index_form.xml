@@ -116,7 +116,7 @@
                     <description>What is this?</description>
                 </tooltip>
                 <label translate="true">Store View</label>
-                <dataScope>store_view</dataScope>
+                <dataScope>store_id</dataScope>
             </settings>
             <formElements>
                 <multiselect>

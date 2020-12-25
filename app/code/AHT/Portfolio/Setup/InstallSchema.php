@@ -76,19 +76,51 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface {
                     'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE
                 ],
                 'Update Time'
-            )
-            -> addColumn(
-                'store_view',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                255,
-                [
-                    'nullable' => true,
-                ],
-                'Store View'
-            )
-            ->setComment('AHT Test Module');
+            );
             $installer->getConnection()->createTable($table);
 
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('portfolio_store')
+                )
+                ->addColumn(
+                    'id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true, 
+                        'unsigned' => true, 
+                        'nullable' => false, 
+                        'primary' => true
+                    ],
+                    'Portfolio Id'
+                    )
+
+                ->addColumn(
+                    'store_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+                    null,
+                    [
+                        'unsigned' => true,
+                        'nullable' => false,
+                        'primary' => true
+                    ],
+                    'Store Id'
+                    )
+                ->addForeignKey(
+                    $installer->getFkName('portfolio_store', 'id', 'portfolio', 'id'),
+                    'id',
+                    $installer->getTable('portfolio'),
+                    'id',
+                    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE)
+                ->addForeignKey(
+                    $installer->getFkName('portfolio_store', 'store_id', 'store', 'store_id'),
+                    'store_id',
+                    $installer->getTable('store'),
+                    'store_id',
+                    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE)
+                ->setComment('portfolio Store');
+            $installer->getConnection()->createTable($table);
+            $installer->endSetup();
         }
     }
 

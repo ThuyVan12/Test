@@ -53,14 +53,44 @@
 				</templates>
 			</settings>
 		</filters>
+         <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="test/index/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <!-- <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>test_index_listing.test_index_listing.test_index_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action> -->
+        </massaction>
 		<paging name="listing_paging" />
 	</listingToolbar>
 		<columns name="test_index_columns">
 			<selectionsColumn name="ids">
-				<settings>
+				<!-- <settings>
 					<indexField>id</indexField>
 					<preserveSelectionsOnFilter>true</preserveSelectionsOnFilter>
-				</settings>
+				</settings> -->
+                  <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="resizeEnabled" xsi:type="boolean">false</item>
+            <item name="resizeDefaultWidth" xsi:type="string">55</item>
+            <item name="indexField" xsi:type="string">id</item>
+        </item>
+    </argument>
 			</selectionsColumn>
 
 		 <column name="id">
@@ -84,7 +114,7 @@
             </settings>
         </column>
 
-        <column name="image" >
+        <column name="image" class="AHT\Portfolio\Ui\Component\Listing\Column\Thumbnail" >
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
@@ -120,17 +150,11 @@
                 <label translate="true">Update Time</label>
             </settings>
         </column>
-
-		 <column name="store_view">
+        <column name="store_id" >
             <settings>
-                <filter>text</filter>
-                <editor>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                    </validation>
-                    <editorType>text</editorType>
-                </editor>
                 <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
             </settings>
         </column>
 	

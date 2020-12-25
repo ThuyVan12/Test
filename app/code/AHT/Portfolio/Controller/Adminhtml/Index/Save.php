@@ -89,7 +89,8 @@ class Save extends \Magento\Backend\App\Action
             } catch (\Exception $e) {
                 $this->messageManager->addException($e, __('Something went wrong while saving the banner.'));
             }
-
+            
+           
             $this->dataPersistor->set('portfolio', $data);
             return $resultRedirect->setPath('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
         }

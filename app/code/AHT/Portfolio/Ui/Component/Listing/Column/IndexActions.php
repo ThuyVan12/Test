@@ -14,7 +14,7 @@ class IndexActions extends Column
      * Url path
      */
     const URL_PATH_EDIT = 'test/index/edit';
-    const URL_PATH_DELETE = 'test/index/edit';
+    const URL_PATH_DELETE = 'test/index/delete';
 
     /**
      * @var UrlInterface

@@ -72,11 +72,14 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      */
     public function getData()
     {
+
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
+     
         $items = $this->collection->getItems();
         /** @var \AHT\Portfolio\Model\Test $portfolio */
+
         foreach ($items as $portfolio) {
             $portfolio = $this->convertValues($portfolio);
             $this->loadedData[$portfolio->getId()] = $portfolio->getData();
